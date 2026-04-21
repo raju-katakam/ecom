@@ -23,16 +23,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'catname' => 'required',
+            'catimage' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
         $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('categories', 'public');
+        if ($request->hasFile('catimage')) {
+            $imagePath = $request->file('catimage')->store('categories', 'public');
         }
         $category = Category::create([
-            'name' => $request->name,
-            'image' => $imagePath
+            'catname' => $request->catname,
+            'catimage' => $imagePath
         ]);
         return response()->json([
             'message' => 'Category created successfully',
@@ -57,21 +57,21 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'catname' => 'required',
+            'catimage' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('catimage')) {
             // delete old image
-            if ($category->image) {
-                Storage::disk('public')->delete($category->image);
+            if ($category->catimage) {
+                Storage::disk('public')->delete($category->catimage);
             }
 
-            $imagePath = $request->file('image')->store('categories', 'public');
-            $category->image = $imagePath;
+            $imagePath = $request->file('catimage')->store('categories', 'public');
+            $category->catimage = $imagePath;
         }
-
-        $category->name = $request->name;
+        
+        $category->catname = $request->catname;
         $category->save();
 
         return response()->json([

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     // comments
-    protected $fillable = ['name', 'image'];
+    protected $fillable = ['catname', 'catimage'];
 }
