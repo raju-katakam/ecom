@@ -74,7 +74,7 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'nullable',
             'price' => 'required|numeric',
-            'pimage' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            
         ]);
 
         if ($request->hasFile('pimage')) {
@@ -82,6 +82,10 @@ class ProductController extends Controller
             if ($product->pimage) {
                 Storage::disk('public')->delete($product->pimage);
             }
+             $request->validate([
+                'pimage' => 'image|mimes:jpg,jpeg,png|max:2048'
+            ]);
+
 
             $imagePath = $request->file('pimage')->store('products', 'public');
             $product->pimage = $imagePath;
