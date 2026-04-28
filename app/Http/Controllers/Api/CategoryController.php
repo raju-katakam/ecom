@@ -24,7 +24,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'catname' => 'required',
-            'catimage' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'catimage' => 'required|image|mimes:jpg,jpeg,png'
         ]);
         $imagePath = null;
         if ($request->hasFile('catimage')) {
@@ -58,7 +58,7 @@ class CategoryController extends Controller
 
         $request->validate([
             'catname' => 'required',
-            'catimage' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'catimage' => 'nullable|image|mimes:jpg,jpeg,png'
         ]);
 
         if ($request->hasFile('catimage')) {
