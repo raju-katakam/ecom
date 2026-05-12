@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\OrderController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -16,6 +18,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/update-cart', [CartController::class, 'updateQuantity']);
     Route::delete('/remove-from-cart/{id}', [CartController::class, 'removeFromCart']);
     Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/create-order', [PaymentController::class, 'createOrder']);
+    Route::post('/verify-payment', [PaymentController::class, 'verifyPayment']);
+    Route::get('/orders', [OrderController::class, 'index']);
+    
 });
 
 // Route::get('/user', function (Request $request) {
